@@ -1,0 +1,24 @@
+clc
+clear
+close all
+% Define the input grayscale image A
+A = [0,1,2,1;1,2,3,2;2,3,4,3;1,2,3,2];
+
+% Convert A to double precision for accurate DFT calculations
+A = double(A);
+
+% Set the size of the DFT
+N = 4;
+
+% Compute the 2D DFT using fft2
+R2 = fft2(A);
+
+% Display the original image and DFT result
+figure;
+subplot(1, 2, 1);
+imshow(A, []);
+title('Original Image');
+
+subplot(1, 2, 2);
+imshow(abs(R2), []);
+title('2D DFT (fft2)');
