@@ -1,33 +1,20 @@
-clc;
-close all;
-clear all;
-I = imread('pratidnya.jpg');
-figure(1);
-subplot(2,2,1);
-imshow(I);
-title('Original Image');
-subplot(2,2,2);
-imhist(I);
-title('Histogram of Original Image');
+clc; close all; clear all;
+% Read the image
+I = imread('ABC.jpeg');
+% Display original image and its histogram
+figure;
+subplot(2,2,1); imshow(I); title('Original Image');
+subplot(2,2,2); imhist(I); title('Histogram of Original Image');
+% Apply histogram equalization
 J = histeq(I);
-subplot(2,2,3);
-imshow(J);
-title('Histogram Equalization');
-subplot(2,2,4);
-imhist(J);
-title('Histogram of Equalized Output');
+subplot(2,2,3); imshow(J); title('Equalized Image');
+subplot(2,2,4); imhist(J); title('Histogram of Equalized Image');
+% Apply iterative histogram equalization
 K = histeq(J);
 L = histeq(K);
-figure(2);
-subplot(2,2,1);
-imshow(K);
-title('Equalization Iteration 2');
-subplot(2,2,2);
-imhist(K);
-title('Histogram of Equalization Iteration 2');
-subplot(2,2,3);
-imshow(L);
-title('Equalization Iteration 3');
-subplot(2,2,4);
-imhist(L);
-title('Histogram of Equalization Iteration 3');
+% Display results of iterative equalization
+figure;
+subplot(2,2,1); imshow(K); title('Equalization Iteration 2');
+subplot(2,2,2); imhist(K); title('Histogram Iteration 2');
+subplot(2,2,3); imshow(L); title('Equalization Iteration 3');
+subplot(2,2,4); imhist(L); title('Histogram Iteration 3');
