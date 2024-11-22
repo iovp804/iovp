@@ -1,27 +1,10 @@
-clc;
-close all;
-clear all;
- 
-I = imread('pratidnya.jpg');
-I = rgb2gray(I); 
-figure(1);
- 
-subplot(1, 3, 1);
-imshow(I);
-title('Original Image');
- 
-I = double(I);
-C = dct2(I);
- 
-subplot(1, 3, 2);
-imshow(C, []);
-colormap gray; % Specify the colormap
-title('DCT of Original Image');
- 
-O = idct2(C);
-O = uint8(O);
- 
-subplot(1, 3, 3);
-imshow(O);
-title('IDCT of DCT Image');
+clc; close all; clear all;
 
+% Read, convert to grayscale, and process the image
+I = rgb2gray(imread('ABC.jpeg'));
+
+% Display original, DCT, and IDCT in one figure
+figure;
+subplot(1,3,1), imshow(I), title('Original');
+subplot(1,3,2), imshow(dct2(double(I)), []), colormap gray, title('DCT');
+subplot(1,3,3), imshow(uint8(idct2(dct2(double(I))))), title('IDCT');
