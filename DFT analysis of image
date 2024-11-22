@@ -1,41 +1,21 @@
-clc
-clear
-close all
-% generating the first image
-A = zeros(256);
-[m,n] = size(A);
-for i = 100:150
-    for j = 100:150
-        A(i,j) = 255;
-    end
-end
-imshow(A), title('first Image')
+clc; clear; close all;
 
-% generating the Second image
-B = ones(256);
-[m,n] = size(A);
-for i = 120:200
-    for j = 120:200
-        B(i,j) = 0;
-    end
-end
-figure, imshow(B), title('Second Image')
+% Create images
+A = zeros(256); A(100:150, 100:150) = 255;
+B = ones(256); B(120:200, 120:200) = 0;
 
-% Convolution
-C = conv2(A,B,'same'); % it will perfrom convlution in speacial domain
-% multiplication in frequency domain
-A1 = fft2(A);  % we have to convert image in frequncy domain so fft
-figure, imshow(A1),title('DFT of first Image')
-B1 = fft2(B);
-% we want multiplication of tranfrom image in frequency domain
-C1 = A1.*B1; % .* is used array multiplication pixel to pixel multiplication
-D = fftshift(ifft2(C1));
-%figure, imshow(C), title('Convolving the image in spitial domain')
-%figure ,imshow(D),title('Multiplication in frequency domain')
+% Spatial and frequency domain operations
+C = conv2(A, B, 'same');
+D = fftshift(ifft2(fft2(A) .* fft2(B)));
 
-subplot(3,2,1),imshow (A),title('First image')
-subplot(3,2,2),imshow (B ),title('Second image')
-subplot(3,2,3),imshow (A1),title('Third image')
-subplot(3,2,4),imshow (B1),title('Fourth image')
-subplot(3,2,5),imshow (C),title('Convloving the images in spaital domain')
-subplot(3,2,6),imshow (D),title('Multiplication in frequency domain')
+% Display results
+subplot(3,2,1), imshow(A, []), title('First Image');
+subplot(3,2,2), imshow(B, []), title('Second Image');
+subplot(3,2,3), imshow(log(abs(fft2(A)) + 1), []), 
+title('DFT of First Image');
+subplot(3,2,4), imshow(log(abs(fft2(B)) + 1), []), 
+title('DFT of Second Image');
+subplot(3,2,5), imshow(C, []), 
+title('Convolution (Spatial Domain)');
+subplot(3,2,6), imshow(abs(D), []), 
+title('Multiplication (Frequency Domain)');
