@@ -1,41 +1,21 @@
-clc;
-close all;
-clear all;
-I = imread('pratidnya.jpg');
-figure(1);
-subplot(2,2,1);
-imshow(I);
-title('Original Image');
-H = (1/9)*[1 1 1; 1 1 1; 1 1 1];
-I1 = imfilter(I,H,'replicate');
-subplot(2,2,2);
-imshow(I1);
-title('Standard Average Smoothing Output');
-H = (1/16)*[1 2 1; 2 4 2; 1 2 1];
-I2 = imfilter(I,H,'replicate');
-subplot(2,2,3);
-imshow(I2);
-title('Weighted Average Smoothing Output');
-H = fspecial('disk',5);
-I3 = imfilter(I,H,'replicate');
-subplot(2,2,4);
-imshow(I3);
-title('Blurred Image');
-figure(2);
-subplot(2,2,1);
-imshow(I);
-title('Original Image');
-H = [-1 -1 -1; -1 8 -1; -1 -1 -1];
-P = imfilter(I,H,'replicate');
-subplot(2,2,2);
-imshow(P);
-title('Output by Laplacian Filter');
-K = I + P;
-subplot(2,2,3);
-imshow(K);
-title('Sharpened Image by Laplacian Filter');
-H = fspecial('unsharp');
-sharpened = imfilter(I,H,'replicate');
-subplot(2,2,4);
-imshow(sharpened);
-title('Sharpened Image by Unsharp Filter');
+clc; close all; clear all;
+% Read the image
+I = imread('ABC.jpeg');
+% Smoothing filters
+H1 = (1/9)ones(3); H2 = (1/16)[1 2 1; 2 4 2; 1 2 1]; H3 = fspecial('disk', 5);
+I1 = imfilter(I, H1, 'replicate'); I2 = imfilter(I, H2, 'replicate'); I3 = imfilter(I, H3, 'replicate');
+% Display results
+figure;
+subplot(2,2,1); imshow(I); title('Original Image');
+subplot(2,2,2); imshow(I1); title('Standard Average Smoothing');
+subplot(2,2,3); imshow(I2); title('Weighted Average Smoothing');
+subplot(2,2,4); imshow(I3); title('Blurred Image');
+% Edge detection and sharpening
+H4 = [-1 -1 -1; -1 8 -1; -1 -1 -1]; H5 = fspecial('unsharp');
+P = imfilter(I, H4, 'replicate'); K = I + P; sharpened = imfilter(I, H5, 'replicate');
+% Display edge detection and sharpening
+figure;
+subplot(2,2,1); imshow(I); title('Original Image');
+subplot(2,2,2); imshow(P); title('Laplacian Filter Output');
+subplot(2,2,3); imshow(K); title('Sharpened by Laplacian');
+subplot(2,2,4); imshow(sharpened); title('Sharpened by Unsharp Filter');
