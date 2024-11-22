@@ -1,69 +1,21 @@
-clc;
-close all;
-clear all;
-% For Grayscale Image
-bw = imread('pratidnya.jpg');
-figure(1);
-subplot(2,3,1);
-imshow(bw);
-title('Original Image');
-%Defining Structure Element
-se = strel('square',3);
-%Dilation
-bw2 = imdilate(bw,se);
-subplot(2,3,2);
-imshow(bw2);
-title('Dilated');
-%Erosion
-bw3 = imerode(bw,se);
-subplot(2,3,3);
-imshow(bw3);
-title('Eroded');
-%Opening
-bw4 = imopen(bw,se);
-subplot(2,3,4);
-imshow(bw4);
-title('Opened');
-%Closing
-bw5 = imclose(bw,se);
-subplot(2,3,5);
-imshow(bw5);
-title('Closed');
-%Edge Extraction
-bw6=bw-bw3;
-subplot(2,3,6);
-imshow(bw6);
-title('Edge Extraction');
-% For Binary Image
-bw = imread('text.png');
-figure(2);
-subplot(2,3,1);
-imshow(bw);
-title('Original Image');
-%Defining Structure Element
-se = strel('square',3);
-%Dilation
-bw2 = imdilate(bw,se);
-subplot(2,3,2);
-imshow(bw2);
-title('Dilated');
-%Erosion
-bw3 = imerode(bw,se);
-subplot(2,3,3);
-imshow(bw3);
-title('Eroded');
-%Opening
-bw4 = imopen(bw,se);
-subplot(2,3,4);
-imshow(bw4);
-title('Opened');
-%Closing
-bw5 = imclose(bw,se);
-subplot(2,3,5);
-imshow(bw5);
-title('Closed');
-%Edge Extraction
-bw6=bw-bw3;
-subplot(2,3,6);
-imshow(bw6);
-title('Edge Extraction');
+clc; close all; clear all;
+% Read images
+bw1 = imread('ABC.jpeg');
+bw2 = imread('text.png');
+se = strel('square', 3);
+% Process first image (Grayscale)
+figure;
+subplot(2,3,1); imshow(bw1); title('Original Image');
+subplot(2,3,2); imshow(imdilate(bw1, se)); title('Dilated');
+subplot(2,3,3); imshow(imerode(bw1, se)); title('Eroded');
+subplot(2,3,4); imshow(imopen(bw1, se)); title('Opened');
+subplot(2,3,5); imshow(imclose(bw1, se)); title('Closed');
+subplot(2,3,6); imshow(bw1 - imerode(bw1, se)); title('Edge Extraction');
+% Process second image (Binary)
+figure;
+subplot(2,3,1); imshow(bw2); title('Original Image');
+subplot(2,3,2); imshow(imdilate(bw2, se)); title('Dilated');
+subplot(2,3,3); imshow(imerode(bw2, se)); title('Eroded');
+subplot(2,3,4); imshow(imopen(bw2, se)); title('Opened');
+subplot(2,3,5); imshow(imclose(bw2, se)); title('Closed');
+subplot(2,3,6); imshow(bw2 - imerode(bw2, se)); title('Edge Extraction');
